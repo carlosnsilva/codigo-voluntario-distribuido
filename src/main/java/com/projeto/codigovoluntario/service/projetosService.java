@@ -25,24 +25,6 @@ public class projetosService {
         return this.projectRepository.save(projeto);
     }
 
-    /*
-    public Projetos updateProject(Long id, Projetos project){
-        return projectRepository.findById(id)
-                .map(body -> {
-                    body.setDescricao(project.getDescricao());
-                    body.setTecnologias(project.getTecnologias());
-                    body.setUrl(project.getUrl());
-
-                    Projetos p = projectRepository.save(body);
-                    return p;
-                }).orElse(null);
-        // esse método apaga os dados anteriores, deixando tudo null
-    }
-
-     */
-
-
-
     public Projetos updateProject(Long id, Projetos project){
         return projectRepository.findById(id)
                 .map(body -> {

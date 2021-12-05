@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/projetos")
 public class projetoController {
 
     @Autowired
@@ -33,12 +33,10 @@ public class projetoController {
     @PutMapping("/projects/{id}")
     public Projetos updateProject(@PathVariable("id") Long id, @RequestBody Projetos projeto){
         return this.projectservice.updateProject(id, projeto);
-
     }
 
     @DeleteMapping("/projects/{id}")
     public void deleteProject(@PathVariable("id") Long id){
         this.projectservice.deleteProject(id);
-
     }
 }
