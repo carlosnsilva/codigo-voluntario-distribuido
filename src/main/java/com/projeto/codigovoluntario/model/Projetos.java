@@ -1,8 +1,7 @@
 package com.projeto.codigovoluntario.model;
 
 import javax.persistence.*;
-
-
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PROJETO")
@@ -11,9 +10,16 @@ public class Projetos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
     private String nome;
+
     private String url;
+
+    @NotNull
     private String descricao;
+
+    @NotNull
     private String tecnologias;
 
     public Long getId() {
