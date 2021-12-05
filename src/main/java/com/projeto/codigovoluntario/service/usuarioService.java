@@ -26,7 +26,7 @@ public class usuarioService {
         return this.userRepository.save(user);
     }
 
-    public Usuario updateProject(Long id, Usuario usuario){
+    public Usuario updateUser(Long id, Usuario usuario){
 
         return userRepository.findById(id)
                 .map(body -> {
@@ -55,7 +55,7 @@ public class usuarioService {
         this.userRepository.deleteById(idUser);
     }
 
-    public void severusDelete(){
+    public void deleteAll(){
         this.userRepository.deleteAll();
     }
 }
