@@ -31,7 +31,7 @@ public class usuarioController {
 
     @PutMapping("/{id}")
     public Usuario updateProject(@PathVariable("id") Long id, @RequestBody Usuario usuario){
-        return this.userService.updateProject(id,usuario);
+        return this.userService.updateUser(id,usuario);
     }
 
     @DeleteMapping("/{id}")
@@ -41,6 +41,6 @@ public class usuarioController {
 
     @DeleteMapping
     public void deleteProject(){
-        this.userService.severusDelete();
+        this.userService.deleteAll();
     }
 }
