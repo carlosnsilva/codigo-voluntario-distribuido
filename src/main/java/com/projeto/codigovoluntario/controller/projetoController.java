@@ -9,33 +9,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/projetos")
+@RequestMapping("/projects")
 public class projetoController {
 
     @Autowired
     private projetosService projectservice;
 
-    @GetMapping("/projects")
+    @GetMapping
     public List<Projetos> getProject(){
         return this.projectservice.getProjects();
     }
 
-    @GetMapping("/projects/{id}")
+    @GetMapping("/{id}")
     public Projetos getProjectPorId(@PathVariable("id") Long id){
         return this.projectservice.getProjectPorId(id);
     }
 
-    @PostMapping("/projects")
+    @PostMapping
     public Projetos insertProject(@RequestBody Projetos projeto){
         return this.projectservice.insertProject(projeto);
     }
 
-    @PutMapping("/projects/{id}")
+    @PutMapping("/{id}")
     public Projetos updateProject(@PathVariable("id") Long id, @RequestBody Projetos projeto){
         return this.projectservice.updateProject(id, projeto);
     }
 
-    @DeleteMapping("/projects/{id}")
+    @DeleteMapping("/{id}")
     public void deleteProject(@PathVariable("id") Long id){
         this.projectservice.deleteProject(id);
     }
