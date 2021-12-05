@@ -27,19 +27,28 @@ public class usuarioService {
     }
 
     public Usuario updateProject(Long id, Usuario usuario){
-        Usuario userOld = getUserById(id);
 
-        if(usuario.getNome().isEmpty() || usuario.getNome() == null){
-            usuario.setNome(userOld.getNome());
-        }
-        if(usuario.getEmail().isEmpty() || usuario.getEmail() == null){
-            usuario.setEmail(userOld.getEmail());
-        }
-        if(usuario.getSenha().isEmpty() || usuario.getEmail() == null){
-            usuario.setSenha(userOld.getSenha());
-        }
+        return userRepository.findById(id)
+                .map(body -> {
+                    Usuario userOld = userRepository.findById(id).orElse(null);;
 
-        return insertUser(usuario);
+                    if(usuario.getNome().isEmpty() || usuario.getNome() == null){
+                        usuario.setNome(userOld.getNome());
+                    }
+                    if(usuario.getEmail().isEmpty() || usuario.getEmail() == null){
+                        usuario.setEmail(userOld.getEmail());
+                    }
+                    if(usuario.getSenha().isEmpty() || usuario.getEmail() == null){
+                        usuario.setSenha(userOld.getSenha());
+                    }
+
+                    body.setNome(usuario.getNome());
+                    body.setEmail(usuario.getEmail());
+                    body.setSenha(usuario.getSenha());
+
+                    Usuario u = userRepository.save(body);
+                    return u;
+                }).orElse(null);
     }
 
     public void deleteUser(Long idUser){

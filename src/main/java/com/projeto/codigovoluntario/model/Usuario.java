@@ -21,7 +21,7 @@ public class Usuario {
     private String senha;
 
     @NotNull
-    private boolean isStudent = false;
+    private boolean isStudent;
 
     public Long getId() {
         return id;
