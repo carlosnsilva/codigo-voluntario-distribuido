@@ -5,8 +5,10 @@ import com.projeto.codigovoluntario.service.projetosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 @RestController
 @RequestMapping("/projects")
@@ -26,8 +28,8 @@ public class projetoController {
     }
 
     @PostMapping
-    public Projetos insertProject(@RequestBody Projetos projeto){
-        return this.projectservice.insertProject(projeto);
+    public void insertProject(@RequestBody Projetos projeto) throws IOException, TimeoutException {
+        this.projectservice.insertProjectInFila(projeto);
     }
 
     @PutMapping("/{id}")

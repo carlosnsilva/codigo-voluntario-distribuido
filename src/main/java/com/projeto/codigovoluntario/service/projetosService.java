@@ -2,16 +2,21 @@ package com.projeto.codigovoluntario.service;
 
 import com.projeto.codigovoluntario.controller.repositorios.projetoRepositorio;
 import com.projeto.codigovoluntario.model.Projetos;
+import com.projeto.codigovoluntario.rabbitMQ.Fila;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 @Service
 public class projetosService {
 
     @Autowired
     private projetoRepositorio projectRepository;
+
+    private Fila fila = new Fila();
 
     public List<Projetos> getProjects(){
         return this.projectRepository.findAll();
@@ -23,6 +28,10 @@ public class projetosService {
 
     public Projetos insertProject(Projetos projeto){
         return this.projectRepository.save(projeto);
+    }
+
+    public void insertProjectInFila(Projetos projetos) throws IOException, TimeoutException {
+        fila.addProjectFila(projetos);
     }
 
     public Projetos updateProject(Long id, Projetos project){
@@ -54,8 +63,6 @@ public class projetosService {
                     return p;
                 }).orElse(null);
     }
-    //Esse método faz uma tratativa para não apagar os registros antigos, mas está estourando null point exception
-
 
 
     public void deleteProject(Long idProject){
