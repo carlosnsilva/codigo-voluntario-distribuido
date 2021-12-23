@@ -2,17 +2,16 @@ package com.projeto.codigovoluntario.rabbitMQ;
 
 import com.google.gson.Gson;
 import com.projeto.codigovoluntario.model.Projetos;
-import com.rabbitmq.client.AMQP;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.*;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
 
 public class Fila {
 
-    private String nomeFila;
+    private String nomeFila = "filaProjetos";
+    private Projetos projeto;
 
     public Fila(){}
 
@@ -29,8 +28,6 @@ public class Fila {
     }
 
     public void addProjectFila(Projetos project) throws IOException, TimeoutException {
-        nomeFila = "filaProjetos";
-
         Channel canal = init();
 
         byte[] projeto = convertForByte(project);
@@ -49,4 +46,17 @@ public class Fila {
         byte[] result = gson.toJson(project).getBytes(StandardCharsets.UTF_8);
         return result;
     }
+
+    public Projetos consumerFila() throws IOException, TimeoutException {
+        Channel canal = init();
+
+        canal.queueDeclare(nomeFila, false,false,false,null);
+
+        DeliverCallback callback = (consumerTag, delivery) -> {
+            projeto = new Projetos(delivery.getBody());
+        };
+
+        return projeto;
+    }
+
 }

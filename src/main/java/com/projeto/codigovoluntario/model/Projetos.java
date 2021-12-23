@@ -22,6 +22,9 @@ public class Projetos {
     @NotNull
     private String tecnologias;
 
+    public Projetos(byte[] body) {
+    }
+
     public Long getId() {
         return id;
     }
