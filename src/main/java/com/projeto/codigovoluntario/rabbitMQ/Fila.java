@@ -53,10 +53,15 @@ public class Fila {
         canal.queueDeclare(nomeFila, false,false,false,null);
 
         DeliverCallback callback = (consumerTag, delivery) -> {
-            projeto = new Projetos(delivery.getBody());
+            projeto = serialize(delivery.getBody());
         };
 
         return projeto;
     }
 
+    public Projetos serialize(byte[] d){
+        Projetos project = new Gson().fromJson(String.valueOf(d),Projetos.class);
+
+        return project;
+    }
 }

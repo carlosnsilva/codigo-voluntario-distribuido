@@ -28,8 +28,8 @@ public class projetoController {
     }
 
     @PostMapping
-    public void insertProject(@RequestBody Projetos projeto) throws IOException, TimeoutException {
-        this.projectservice.insertProjectInFila(projeto);
+    public Projetos insertProject(@RequestBody Projetos projeto) throws IOException, TimeoutException {
+        return this.projectservice.insertProjectInFila(projeto);
     }
 
     @PutMapping("/{id}")
