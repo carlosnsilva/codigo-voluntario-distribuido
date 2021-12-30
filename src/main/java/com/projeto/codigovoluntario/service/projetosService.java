@@ -30,8 +30,11 @@ public class projetosService {
         return this.projectRepository.save(projeto);
     }
 
-    public void insertProjectInFila(Projetos projetos) throws IOException, TimeoutException {
+    public Projetos insertProjectInFila(Projetos projetos) throws IOException, TimeoutException {
         fila.addProjectFila(projetos);
+        Projetos p = fila.consumerFila();
+
+        return insertProject(p);
     }
 
     public Projetos updateProject(Long id, Projetos project){
