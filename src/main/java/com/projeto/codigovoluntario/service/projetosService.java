@@ -31,10 +31,19 @@ public class projetosService {
     }
 
     public Projetos insertProjectInFila(Projetos projetos) throws IOException, TimeoutException {
-        fila.addProjectFila(projetos);
-        Projetos p = fila.consumerFila();
+        fila.publishFila(projetos);
+        List<String> atributos = fila.consumerFila();
+        System.out.println(atributos);
+        if (atributos.size() == 4) {
+        	Projetos p = new Projetos();
+            p.setNome(atributos.get(0));
+            p.setDescricao(atributos.get(1));
+            p.setTecnologias(atributos.get(2));
+            p.setUrl(atributos.get(3));
 
-        return insertProject(p);
+            return insertProject(p);
+        }
+        return null;
     }
 
     public Projetos updateProject(Long id, Projetos project){

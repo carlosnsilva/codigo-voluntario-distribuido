@@ -3,6 +3,7 @@ package com.projeto.codigovoluntario.controller;
 import com.projeto.codigovoluntario.model.Projetos;
 import com.projeto.codigovoluntario.service.projetosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -28,8 +29,9 @@ public class projetoController {
     }
 
     @PostMapping
-    public Projetos insertProject(@RequestBody Projetos projeto) throws IOException, TimeoutException {
-        return this.projectservice.insertProjectInFila(projeto);
+    public ResponseEntity<?> insertProject(@RequestBody Projetos projeto) throws IOException, TimeoutException {
+    	Projetos obj = this.projectservice.insertProjectInFila(projeto);
+        return obj != null ? ResponseEntity.ok(obj) : ResponseEntity.badRequest().body("Não foi possível adicionar um novo projeto!");
     }
 
     @PutMapping("/{id}")

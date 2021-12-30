@@ -21,6 +21,10 @@ public class Projetos {
 
     @NotNull
     private String tecnologias;
+    
+    public Projetos() {
+    	
+    }
 
     public Projetos(byte[] body) {
     }
